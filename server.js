@@ -19,6 +19,9 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 
+// imports native path package to access static files
+const path = require("path");
+
 /* ----------------------------------------------------------- */
 /* ------------------- Database Connection ------------------- */
 /* ----------------------------------------------------------- */
@@ -40,6 +43,9 @@ app.use(express.urlencoded({ extended: false }));
 // telling express to use more installed middleware
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
+
+// defines static path for CSS styling
+app.use(express.static(path.join(__dirname, "public")));
 
 /* ----------------------------------------------------------- */
 /* -------------------- Server Connection -------------------- */

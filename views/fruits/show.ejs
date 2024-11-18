@@ -3,25 +3,36 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/stylesheets/style.css" />
 		<title><%= fruit.name %></title>
 	</head>
 	<body>
-		<!-- displays fruit name that matches ID -->
-		<h1><%= fruit.name %></h1>
-		<!-- Conditional rendering based on fruit's readiness -->
-		<% if (fruit.isReadyToEat) { %>
-		<p>This fruit is ready to eat!</p>
-		<% } else { %>
-		<p>This fruit is not ready to eat!</p>
-		<% } %>
-		<!-- method-override lets forms do more than GET/POST -->
-		<form action="/fruits/<%=fruit._id%>?_method=DELETE" method="POST">
-			<!-- adds button to delete an entry + show page -->
-			<button type="submit">Delete <%= fruit.name %></button>
-		</form>
-		<br />
-		<a href="/fruits/<%= fruit._id %>/edit">Edit <%= fruit.name %></a>
-		<br />
-		<a href="/fruits/">Back to Fruits</a>
+		<div class="fruit-details">
+			<!-- displays fruit name that matches ID -->
+			<h1><%= fruit.name %></h1>
+			<!-- Conditional render based on fruit readiness -->
+			<% if (fruit.isReadyToEat) { %>
+			<p>This fruit is ready to eat!</p>
+			<% } else { %>
+			<p>This fruit is not ready to eat!</p>
+			<% } %>
+			<!-- method-override lets form do more than GET/POST -->
+			<div class="fruit-actions">
+				<form
+					class="delete-form"
+					action="/fruits/<%=fruit._id%>?_method=DELETE"
+					method="POST"
+				>
+					<!-- adds button to delete an entry + show page -->
+					<button class="delete-button" type="submit">
+						Delete <%= fruit.name %>
+					</button>
+				</form>
+				<a class="edit-link" href="/fruits/<%= fruit._id %>/edit"
+					>Edit <%= fruit.name %></a
+				>
+			</div>
+		</div>
+		<a class="index-link-text" href="/fruits/">Back to Fruits</a>
 	</body>
 </html>

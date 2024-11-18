@@ -5,6 +5,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/stylesheets/style.css" />
 		<title>Create a Fruit</title>
 	</head>
 	<body>
@@ -14,12 +15,14 @@
 		<form action="/fruits/<%=fruit._id%>?_method=PUT" method="POST">
 			<label for="name">Name:</label>
 			<input type="text" name="name" value="<%= fruit.name %>" />
-			<label for="isReadyToEat">Ready to Eat?</label>
-			<input
-				type="checkbox"
-				name="isReadyToEat"
-				<% if (fruit.isReadyToEat) { %>checked<% } %>
-                >
+			<div class="checkbox-div">
+				<label for="isReadyToEat">Ready to Eat?</label>
+				<input
+					type="checkbox"
+					name="isReadyToEat"
+					<% if (fruit.isReadyToEat) { %>checked<% } %>
+                    >
+			</div>
 			<!-- update the button text -->
 			<button type="submit">Update Fruit</button>
 		</form>
