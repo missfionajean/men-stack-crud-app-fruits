@@ -53,8 +53,17 @@ app.get("/", async (req, res) => {
 	res.render("index.ejs");
 });
 
+// GET request, path "/fruits" (for displaying DB contents)
+app.get("/fruits", async (req, res) => {
+	// finds all data in database defined by "Fruit" variable
+	const allFruits = await Fruit.find();
+	// renders fruit-index.ejs with data in unnamed local object; first parameter will be an iterable array called "fruits"
+	res.render("fruits/fruit-index.ejs", { fruits: allFruits });
+});
+
 // GET request, path "/fruits/new"
 app.get("/fruits/new", (req, res) => {
+	// renders new.ejs EJS/HTML template
 	res.render("fruits/new.ejs");
 });
 
@@ -74,5 +83,5 @@ app.post("/fruits", async (req, res) => {
 	await Fruit.create(req.body);
 
 	// redirects user back to empty "new" page to enter more
-	res.redirect("/fruits/new");
+	res.redirect("/fruits");
 });
