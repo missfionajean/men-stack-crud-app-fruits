@@ -15,6 +15,10 @@ const app = express();
 // importing mongoose (mongo butler) package for local use
 const mongoose = require("mongoose");
 
+// adding in dependencies for DELETE functionality
+const methodOverride = require("method-override");
+const morgan = require("morgan");
+
 /* ----------------------------------------------------------- */
 /* ------------------- Database Connection ------------------- */
 /* ----------------------------------------------------------- */
@@ -32,6 +36,10 @@ const Fruit = require("./models/fruit.js");
 
 /* LECTURE NOTES: This middleware parses incoming request bodies, extracting form data and converting it into a JavaScript object. It then attaches this object to the req.body property of the request, making the form data easily accessible within our route handlers. To enable this functionality, add the following line to server.js, right after importing the Fruit model. */
 app.use(express.urlencoded({ extended: false }));
+
+// telling express to use more installed middleware
+app.use(methodOverride("_method"));
+app.use(morgan("dev"));
 
 /* ----------------------------------------------------------- */
 /* -------------------- Server Connection -------------------- */
@@ -89,5 +97,12 @@ app.post("/fruits", async (req, res) => {
 	await Fruit.create(req.body);
 
 	// redirects user back to empty "new" page to enter more
+	res.redirect("/fruits");
+});
+
+app.delete("/fruits/:fruitId", async (req, res) => {
+	// deletes database entry (will no longer be rendered to EJS)
+	await Fruit.findByIdAndDelete(req.params.fruitId);
+	// sends back to fruit list (now updated)
 	res.redirect("/fruits");
 });

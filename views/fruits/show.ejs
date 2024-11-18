@@ -6,6 +6,7 @@
 		<title><%= fruit.name %></title>
 	</head>
 	<body>
+		<!-- displays fruit name that matches ID -->
 		<h1><%= fruit.name %></h1>
 		<!-- Conditional rendering based on fruit's readiness -->
 		<% if (fruit.isReadyToEat) { %>
@@ -13,6 +14,12 @@
 		<% } else { %>
 		<p>This fruit is not ready to eat!</p>
 		<% } %>
+		<!-- method-override lets forms do more than GET/POST -->
+		<form action="/fruits/<%=fruit._id%>?_method=DELETE" method="POST">
+			<!-- adds button to delete an entry + show page -->
+			<button type="submit">Delete <%= fruit.name %></button>
+		</form>
+        <br>
 		<a href="/fruits/">Back to Fruits</a>
 	</body>
 </html>
