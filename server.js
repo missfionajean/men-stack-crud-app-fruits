@@ -14,3 +14,12 @@ const PORT = 3000;
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 });
+
+/* ----------------------------------------------------------- */
+/* ------------------------- Routes -------------------------- */
+/* ----------------------------------------------------------- */
+
+// GET request, path "/" (notice the addition of async in function)
+app.get("/", async (req, res) => {
+	res.render("index.ejs");
+});
