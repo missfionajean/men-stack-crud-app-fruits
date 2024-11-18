@@ -2,13 +2,32 @@
 /* ------------------- Importing Packages -------------------- */
 /* ----------------------------------------------------------- */
 
+// importing .env package for local use
+const dotenv = require("dotenv");
+// Loads the environment variables from .env file
+dotenv.config();
+
 // importing express package for local use
 const express = require("express");
-
 // making express more usable by storing in variable
 const app = express();
 
-// making an easily editable server port
+// importing mongoose (mongo butler) package for local use
+const mongoose = require("mongoose");
+
+/* ----------------------------------------------------------- */
+/* ------------------- Server Connection --------------------- */
+/* ----------------------------------------------------------- */
+
+// connect to MongoDB using the connection string in the .env file
+mongoose.connect(process.env.MONGODB_URI);
+
+// log connection status to terminal on start
+mongoose.connection.on("connected", () => {
+    console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+  });
+
+// making an easily modifiable server port
 const PORT = 3000;
 
 app.listen(PORT, () => {
