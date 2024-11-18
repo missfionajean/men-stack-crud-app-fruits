@@ -13,7 +13,7 @@
 			<!-- iterates through array in local object -->
 			<% fruits.forEach(fruit => { %>
 			<!-- makes a new list item for each datum -->
-			<li><%= fruit.name %></li>
+			<li><a href="/fruits/<%= fruit._id %>"><%= fruit.name %></a></li>
 			<% }); %>
 		</ul>
 		<a href="/fruits/new">Add New Fruit</a>

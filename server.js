@@ -67,6 +67,12 @@ app.get("/fruits/new", (req, res) => {
 	res.render("fruits/new.ejs");
 });
 
+// must be BELOW "fruits/new" route or it will take "new" as param
+app.get("/fruits/:fruitId", async (req, res) => {
+	const foundFruit = await Fruit.findById(req.params.fruitId);
+	res.render("fruits/show.ejs", { fruit: foundFruit });
+});
+
 // POST request, path "/fruits" (async since we're dealing with DB)
 app.post("/fruits", async (req, res) => {
 	// codeblock to be run (adjusts schema based on HTML form)
