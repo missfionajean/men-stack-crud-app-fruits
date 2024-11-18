@@ -19,7 +19,9 @@
 			<!-- adds button to delete an entry + show page -->
 			<button type="submit">Delete <%= fruit.name %></button>
 		</form>
-        <br>
+		<br />
+		<a href="/fruits/<%= fruit._id %>/edit">Edit <%= fruit.name %></a>
+		<br />
 		<a href="/fruits/">Back to Fruits</a>
 	</body>
 </html>

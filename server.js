@@ -100,9 +100,33 @@ app.post("/fruits", async (req, res) => {
 	res.redirect("/fruits");
 });
 
+/* INPORTANT NOTE: HTTP requests are attached to a path, but are unique from each other, that's why you have a GET and POST request pointing to the same URL path. You need both to be able to update AND view the page. POST to add data. GET to render the EJS file. */
+
 app.delete("/fruits/:fruitId", async (req, res) => {
 	// deletes database entry (will no longer be rendered to EJS)
 	await Fruit.findByIdAndDelete(req.params.fruitId);
 	// sends back to fruit list (now updated)
 	res.redirect("/fruits");
+});
+
+// GET request; path "/fruits/:fruitId/edit" (for rendering)
+app.get("/fruits/:fruitId/edit", async (req, res) => {
+	const foundFruit = await Fruit.findById(req.params.fruitId);
+	res.render("fruits/edit.ejs", { fruit: foundFruit });
+});
+
+// PUT request; path "/fruits/:fruitId"
+app.put("/fruits/:fruitId", async (req, res) => {
+	// Handle the 'isReadyToEat' checkbox data
+	if (req.body.isReadyToEat === "on") {
+		req.body.isReadyToEat = true;
+	} else {
+		req.body.isReadyToEat = false;
+	}
+
+	// Update the fruit in the database (grabs data from form)
+	await Fruit.findByIdAndUpdate(req.params.fruitId, req.body);
+
+	// Redirect to the fruit's show page to see the updates
+	res.redirect(`/fruits/${req.params.fruitId}`);
 });
