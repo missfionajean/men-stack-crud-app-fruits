@@ -24,8 +24,11 @@ mongoose.connect(process.env.MONGODB_URI);
 
 // log connection status to terminal on start
 mongoose.connection.on("connected", () => {
-    console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
-  });
+	console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+});
+
+// import fruit DB model for local use (CRUD functionality)
+const Fruit = require("./models/fruit.js");
 
 // making an easily modifiable server port
 const PORT = 3000;
